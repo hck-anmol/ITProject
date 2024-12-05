@@ -296,7 +296,7 @@ void Payment(int totalAmount)
     }
 }
 
-// Clear input buffer..
+// Clear input buffer
 void clearInputBuffer()
 {
     while (getchar() != '\n')
