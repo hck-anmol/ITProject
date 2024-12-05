@@ -8,7 +8,7 @@
 #define DISCOUNT_THRESHOLD 50.0
 #define DISCOUNT_RATE 0.1
 
-// Structs
+// Structurea defined
 typedef struct
 {
     char name[50];
