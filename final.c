@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include "qrcodegen.h"
 
 // Constants
 #define MAX_ITEMS 8
@@ -312,52 +311,52 @@ void Payment(float totalAmount)
         printf("Thank you for your payment!\nYour order will reach you shortly!");
     }
 }
-void Payment(float amountLeft)
-{
-    int paymentMethod;
-    float paidAmount;
+// void Payment(float amountLeft)
+// {
+//     int paymentMethod;
+//     float paidAmount;
 
-    printf("\n===== Payment =====\n");
-    printf("Total Amount Due: Rs%d\n", amountLeft);
-    printf("Select Payment Method:\n");
-    printf("1. Cash\n");
-    printf("2. Credit/Debit Card\n");
-    printf("3. UPI\n");
-    printf("Enter your choice (1-3): ");
+//     printf("\n===== Payment =====\n");
+//     printf("Total Amount Due: Rs%d\n", amountLeft);
+//     printf("Select Payment Method:\n");
+//     printf("1. Cash\n");
+//     printf("2. Credit/Debit Card\n");
+//     printf("3. UPI\n");
+//     printf("Enter your choice (1-3): ");
 
-    // Input validation
-    if (scanf("%d", &paymentMethod) != 1 || paymentMethod < 1 || paymentMethod > 3)
-    {
-        printf("Invalid payment method. Please try again.\n");
-        clearInputBuffer();
-        return;
-    }
-    if (paymentMethod == 3)
-    {
-        char qrCode[10][10] = {
-            {'*', '*', '*', '*', '*', '*', '*', '*', '*', '*'},
-            {'*', '*', ' ', ' ', ' ', '*', '*', '*', ' ', '*'},
-            {'*', '*', '*', '*', '*', '*', '*', '*', '*', '*'},
-            {'*', '*', '*', '*', ' ', ' ', '*', '*', ' ', '*'},
-            {'*', '*', '*', '*', '*', '*', '*', '*', '*', '*'},
-            {'*', '*', '*', '*', '*', '*', '*', '*', '*', '*'},
-            {'*', '*', '*', '*', '*', '*', '*', '*', '*', '*'},
-            {'*', '*', ' ', ' ', ' ', '*', '*', '*', ' ', '*'},
-            {'*', '*', '*', '*', '*', '*', '*', '*', '*', '*'},
-            {'*', '*', '*', '*', '*', '*', '*', '*', '*', '*'}};
+//     // Input validation
+//     if (scanf("%d", &paymentMethod) != 1 || paymentMethod < 1 || paymentMethod > 3)
+//     {
+//         printf("Invalid payment method. Please try again.\n");
+//         clearInputBuffer();
+//         return;
+//     }
+//     if (paymentMethod == 3)
+//     {
+//         char qrCode[10][10] = {
+//             {'*', '*', '*', '*', '*', '*', '*', '*', '*', '*'},
+//             {'*', '*', ' ', ' ', ' ', '*', '*', '*', ' ', '*'},
+//             {'*', '*', '*', '*', '*', '*', '*', '*', '*', '*'},
+//             {'*', '*', '*', '*', ' ', ' ', '*', '*', ' ', '*'},
+//             {'*', '*', '*', '*', '*', '*', '*', '*', '*', '*'},
+//             {'*', '*', '*', '*', '*', '*', '*', '*', '*', '*'},
+//             {'*', '*', '*', '*', '*', '*', '*', '*', '*', '*'},
+//             {'*', '*', ' ', ' ', ' ', '*', '*', '*', ' ', '*'},
+//             {'*', '*', '*', '*', '*', '*', '*', '*', '*', '*'},
+//             {'*', '*', '*', '*', '*', '*', '*', '*', '*', '*'}};
 
-        // Print the QR-like pattern
-        for (int i = 0; i < 10; i++)
-        {
-            for (int j = 0; j < 10; j++)
-            {
-                printf("%c ", qrCode[i][j]);
-            }
-            printf("\n");
-        }
-        printf("Kindly scan this qr and pay %d amount.\n", amountLeft);
-    }
-}
+//         // Print the QR-like pattern
+//         for (int i = 0; i < 10; i++)
+//         {
+//             for (int j = 0; j < 10; j++)
+//             {
+//                 printf("%c ", qrCode[i][j]);
+//             }
+//             printf("\n");
+//         }
+//         printf("Kindly scan this qr and pay %d amount.\n", amountLeft);
+//     }
+// }
 
 // Clear input buffer..
 void clearInputBuffer()
