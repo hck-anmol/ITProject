@@ -83,7 +83,7 @@ int main()
             break;
         case 5:
             checkout(orders, orderCount);
-            orderCount = 0; // Reset the order after checkout
+            orderCount = 0; // Reset order after checkout
             break;
         case 6:
             printf("Thank you for using the Food Ordering Platform!\n");
