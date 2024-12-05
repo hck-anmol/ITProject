@@ -2,13 +2,13 @@
 #include <string.h>
 #include <stdlib.h>
 
-// Constants
+// Pre defined Constants
 #define MAX_ITEMS 8
 #define MAX_ORDERS 100
 #define DISCOUNT_MIN 1000
 #define DISCOUNT_RATE 0.1
 
-// Structurs defined
+// Structurs definition
 typedef struct
 {
     char name[50];
@@ -21,14 +21,13 @@ typedef struct
     int quantity;
 } Order;
 
-// Function prototypes
+// Defining funtions
 void displayMenu(MenuItem menu[], int size);
 void takeOrder(MenuItem menu[], int menuSize, Order orders[], int *orderCount);
 void addOrder(MenuItem menu[], int menuSize, Order orders[], int *orderCount);
 void viewOrder(Order orders[], int orderCount);
 void checkout(Order orders[], int orderCount);
 void Payment(int);
-void generateQRCode(const char *data);
 void clearInputBuffer();
 
 int main()
@@ -145,6 +144,7 @@ void takeOrder(MenuItem menu[], int menuSize, Order orders[], int *orderCount)
 
     printf("Added %d x %s to your order.\n", quantity, menu[itemNumber - 1].name);
 }
+// Adding more items to order
 void addOrder(MenuItem menu[], int menuSize, Order orders[], int *orderCount)
 {
     int itemNumber, quantity;
@@ -217,6 +217,8 @@ void checkout(Order orders[], int orderCount)
         printf("%d x %s - Rs%d (Total: Rs%d)\n", orders[i].quantity, orders[i].item.name, orders[i].item.price, itemTotal);
     }
     printf("Your total amount : %d\n", total);
+
+    // Giving Discount
     if (total >= DISCOUNT_MIN)
     {
         int discount = total * DISCOUNT_RATE;
