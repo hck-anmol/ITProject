@@ -8,7 +8,7 @@
 #define DISCOUNT_MIN 1000
 #define DISCOUNT_RATE 0.1
 
-// Structurs definition
+// Structures definition
 typedef struct
 {
     char name[50];
