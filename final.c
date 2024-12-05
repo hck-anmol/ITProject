@@ -5,7 +5,7 @@
 // Constants
 #define MAX_ITEMS 8
 #define MAX_ORDERS 100
-#define DISCOUNT_MIN 50.0
+#define DISCOUNT_MIN 1000
 #define DISCOUNT_RATE 0.1
 
 // Structurs defined
@@ -27,7 +27,7 @@ void takeOrder(MenuItem menu[], int menuSize, Order orders[], int *orderCount);
 void addOrder(MenuItem menu[], int menuSize, Order orders[], int *orderCount);
 void viewOrder(Order orders[], int orderCount);
 void checkout(Order orders[], int orderCount);
-void Payment(float);
+void Payment(int);
 void generateQRCode(const char *data);
 void clearInputBuffer();
 
@@ -39,10 +39,10 @@ int main()
         {"Italian Pizza", 450},
         {"Paneer chilli", 250},
         {"Ice Cream", 150},
-        {"Noodles", 100},
-        {"Soup", 150},
+        {"Noodles", 200},
+        {"Soup", 140},
         {"Milkshake", 150},
-        {"Fried Rice", 150}};
+        {"Fried Rice", 300}};
 
     // Order capacity
     Order orders[MAX_ORDERS];
@@ -51,7 +51,7 @@ int main()
     int choice;
     while (1)
     {
-        printf("\n===== Welcome to Olives~ E-menu =====\n");
+        printf("\n===== Welcome to Olives =====\n");
         printf("1. View Menu\n");
         printf("2. Place an Order\n");
         printf("3. Add more to the Order\n");
@@ -216,18 +216,18 @@ void checkout(Order orders[], int orderCount)
         total += itemTotal;
         printf("%d x %s - Rs%d (Total: Rs%d)\n", orders[i].quantity, orders[i].item.name, orders[i].item.price, itemTotal);
     }
+    printf("Your total amount : %d\n", total);
     if (total >= DISCOUNT_MIN)
     {
         int discount = total * DISCOUNT_RATE;
         total -= discount;
         printf("Congratulations! You received a 10%% discount of Rs%d.\n", discount);
     }
-
-    printf("Total Amount Due: %d\n", total);
+    printf("Total payable amount: %d\n", total);
     printf("Thank you for your order! Proceed for the payment\n");
     Payment(total);
 }
-void Payment(float totalAmount)
+void Payment(int totalAmount)
 {
     int paymentMethod;
     float paidAmount;
@@ -235,7 +235,7 @@ void Payment(float totalAmount)
     printf("\n===== Payment =====\n");
     printf("Total Amount Due: Rs%d\n", totalAmount);
     printf("Select Payment Method:\n");
-    printf("1. Cash\n");
+    printf("1. Cash on delivery\n");
     printf("2. Credit/Debit Card\n");
     printf("3. UPI\n");
     printf("Enter your choice (1-3): ");
@@ -249,114 +249,50 @@ void Payment(float totalAmount)
     }
     if (paymentMethod == 3)
     {
-        char qrCode[10][10] = {
-            {'*', '*', '*', '*', '*', '*', '*', '*', '*', '*'},
-            {'*', '*', ' ', ' ', ' ', '*', '*', '*', ' ', '*'},
-            {'*', '*', '*', '*', '*', '*', '*', '*', '*', '*'},
-            {'*', '*', '*', '*', ' ', ' ', '*', '*', ' ', '*'},
-            {'*', '*', '*', '*', '*', '*', '*', '*', '*', '*'},
-            {'*', '*', '*', '*', '*', '*', '*', '*', '*', '*'},
-            {'*', '*', '*', '*', '*', '*', '*', '*', '*', '*'},
-            {'*', '*', ' ', ' ', ' ', '*', '*', '*', ' ', '*'},
-            {'*', '*', '*', '*', '*', '*', '*', '*', '*', '*'},
-            {'*', '*', '*', '*', '*', '*', '*', '*', '*', '*'}};
+        printf("\n");
+        char qrCode[10][11] = {
+            {' ', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*'},
+            {' ', '*', '*', ' ', ' ', ' ', '*', '*', '*', ' ', '*'},
+            {' ', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*'},
+            {' ', '*', ' ', '*', '*', ' ', ' ', '*', '*', ' ', '*'},
+            {' ', '*', ' ', '*', '*', '*', '*', '*', '*', '*', '*'},
+            {' ', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*'},
+            {' ', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*'},
+            {' ', '*', '*', ' ', ' ', ' ', '*', '*', '*', ' ', '*'},
+            {' ', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*'},
+            {' ', '*', '*', '*', '*', '*', '*', '*', '*', '*', '*'}};
 
         // Print the QR-like pattern
         for (int i = 0; i < 10; i++)
         {
-            for (int j = 0; j < 10; j++)
+            for (int j = 0; j < 11; j++)
             {
                 printf("%c ", qrCode[i][j]);
             }
             printf("\n");
         }
-        printf("Kindly scan this qr and pay the amount.\n");
-
-        printf("Enter the amount paid: ");
-        if (scanf("%d", &paidAmount) != 1 || paidAmount < totalAmount)
-        {
-            printf("Insufficient or invalid amount. Please enter a valid amount.\n");
-            clearInputBuffer();
-            int amountLeft = totalAmount - paidAmount;
-            Payment(amountLeft);
-            return;
-        }
+        printf("\n");
+        printf("Kindly scan this QR and pay the amount.\n.........");
+        printf("Thank you for your payment!\nYour order will reach shortly!");
+        exit(0);
     }
-    else if (paymentMethod == 2)
+    if (paymentMethod == 2)
     {
-
-        printf("Enter the amount paid: ");
-        if (scanf("%d", &paidAmount) != 1 || paidAmount < totalAmount)
-        {
-            printf("Insufficient or invalid amount. Please enter a valid amount.\n");
-            clearInputBuffer();
-            int amountLeft = totalAmount - paidAmount;
-            Payment(amountLeft);
-            return;
-        }
-
-        else
-        {
-            printf("Enter the amount paid: ");
-            if (scanf("%f", &paidAmount) != 1 || paidAmount < totalAmount)
-            {
-                printf("Insufficient or invalid amount. Please enter a valid amount.\n");
-                clearInputBuffer();
-                return;
-            }
-        }
-        float change = paidAmount - totalAmount;
+        printf("Kindly Swipe the card in the machine\n.........");
+        printf("Thank you for your payment!\nYour order will reach shortly!");
+        exit(0);
+    }
+    if (paymentMethod == 1)
+    {
+        int paidamount;
+        scanf("%d", &paidAmount);
+        int change = paidAmount - totalAmount;
         printf("Payment successful!\n");
-        printf("Change: Rs%d\n", change);
-        printf("Thank you for your payment!\nYour order will reach you shortly!");
+        printf("Here's your Change: Rs%d\n", change);
+        printf("Thank you for your payment!\nYour order will reach shortly!");
+        exit(0);
     }
 }
-// void Payment(float amountLeft)
-// {
-//     int paymentMethod;
-//     float paidAmount;
-
-//     printf("\n===== Payment =====\n");
-//     printf("Total Amount Due: Rs%d\n", amountLeft);
-//     printf("Select Payment Method:\n");
-//     printf("1. Cash\n");
-//     printf("2. Credit/Debit Card\n");
-//     printf("3. UPI\n");
-//     printf("Enter your choice (1-3): ");
-
-//     // Input validation
-//     if (scanf("%d", &paymentMethod) != 1 || paymentMethod < 1 || paymentMethod > 3)
-//     {
-//         printf("Invalid payment method. Please try again.\n");
-//         clearInputBuffer();
-//         return;
-//     }
-//     if (paymentMethod == 3)
-//     {
-//         char qrCode[10][10] = {
-//             {'*', '*', '*', '*', '*', '*', '*', '*', '*', '*'},
-//             {'*', '*', ' ', ' ', ' ', '*', '*', '*', ' ', '*'},
-//             {'*', '*', '*', '*', '*', '*', '*', '*', '*', '*'},
-//             {'*', '*', '*', '*', ' ', ' ', '*', '*', ' ', '*'},
-//             {'*', '*', '*', '*', '*', '*', '*', '*', '*', '*'},
-//             {'*', '*', '*', '*', '*', '*', '*', '*', '*', '*'},
-//             {'*', '*', '*', '*', '*', '*', '*', '*', '*', '*'},
-//             {'*', '*', ' ', ' ', ' ', '*', '*', '*', ' ', '*'},
-//             {'*', '*', '*', '*', '*', '*', '*', '*', '*', '*'},
-//             {'*', '*', '*', '*', '*', '*', '*', '*', '*', '*'}};
-
-//         // Print the QR-like pattern
-//         for (int i = 0; i < 10; i++)
-//         {
-//             for (int j = 0; j < 10; j++)
-//             {
-//                 printf("%c ", qrCode[i][j]);
-//             }
-//             printf("\n");
-//         }
-//         printf("Kindly scan this qr and pay %d amount.\n", amountLeft);
-//     }
-// }
 
 // Clear input buffer..
 void clearInputBuffer()
