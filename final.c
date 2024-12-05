@@ -359,7 +359,7 @@ void Payment(float amountLeft)
     }
 }
 
-// Clear input buffer.
+// Clear input buffer..
 void clearInputBuffer()
 {
     while (getchar() != '\n')
